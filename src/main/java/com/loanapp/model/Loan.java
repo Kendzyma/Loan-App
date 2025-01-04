@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
  * @date :  1/3/25
  * @email : Tiamiyu@getrova.com, TiamiyuKehinde5@gmail.com
  */
-@Getter
-@Setter
-@ToString
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

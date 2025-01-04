@@ -12,9 +12,7 @@ import java.time.LocalDateTime;
  * @email : Tiamiyu@getrova.com, TiamiyuKehinde5@gmail.com
  */
 
-@Getter
-@Setter
-@ToString
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

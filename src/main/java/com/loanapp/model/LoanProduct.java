@@ -10,11 +10,9 @@ import lombok.*;
  * @email : Tiamiyu@getrova.com, TiamiyuKehinde5@gmail.com
  */
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 @Table(name = "loan_products")
 @Entity

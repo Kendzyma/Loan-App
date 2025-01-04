@@ -3,6 +3,7 @@ package com.loanapp.service.impl;
 import com.loanapp.dto.DefaultResponse;
 import com.loanapp.dto.UserDto;
 import com.loanapp.dto.UserRequest;
+import com.loanapp.enums.RoleName;
 import com.loanapp.exception.BadRequestException;
 import com.loanapp.model.Role;
 import com.loanapp.model.User;
@@ -14,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -97,11 +99,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public DefaultResponse deleteUser(Long id) {
+    public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("User not found"));
 
         userRepository.delete(user);
-        return new DefaultResponse();
     }
 }

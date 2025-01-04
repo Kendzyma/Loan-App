@@ -21,5 +21,5 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
-    DefaultResponse deleteUser(Long id);
+    void deleteUser(Long id);
 }

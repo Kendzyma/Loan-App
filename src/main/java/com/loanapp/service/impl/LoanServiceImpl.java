@@ -89,6 +89,7 @@ public class LoanServiceImpl implements LoanService {
             case APPROVED:
                 loan.setApprovalDate(LocalDateTime.now());
                 loan.setRepaymentDate(resolveMaturityDate(loan));
+                loan.setStatus(status);
                 loan.setOutstandingBalance(LoanCalculator.calculateSimpleInterestAmount(
                         loan.getAmount(),
                         loan.getInterestRate()
@@ -184,6 +185,9 @@ public class LoanServiceImpl implements LoanService {
     private void validateRepayment(Loan loan, RepaymentRequest repaymentRequest) {
         if (loan.getStatus() == Loan.LoanStatus.REPAID) {
             throw new ForbiddenException("loan is already repaid");
+        }
+        if (loan.getStatus() != Loan.LoanStatus.APPROVED) {
+            throw new BadRequestException("Loan has not been approved");
         }
         if (repaymentRequest.amount() > loan.getOutstandingBalance()) {
             throw new BadRequestException("repayment amount is greater than outstanding balance");

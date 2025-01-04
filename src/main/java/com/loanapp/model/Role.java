@@ -12,12 +12,10 @@ import lombok.*;
  */
 
 @Entity
-@Setter
-@Getter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "roles")
 public class Role extends BaseEntity{
     @Id

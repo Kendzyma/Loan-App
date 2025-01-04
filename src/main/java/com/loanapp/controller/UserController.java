@@ -1,5 +1,6 @@
 package com.loanapp.controller;
 
+import com.loanapp.dto.ApiResponse;
 import com.loanapp.dto.DefaultResponse;
 import com.loanapp.dto.UserDto;
 import com.loanapp.dto.UserRequest;
@@ -65,7 +66,8 @@ public class UserController {
             description = "Delete a user")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public DefaultResponse deleteUser(@PathVariable("id") Long id) {
-        return userService.deleteUser(id);
+    public ApiResponse<String> deleteUser(@PathVariable("id") Long id) {
+         userService.deleteUser(id);
+         return ApiResponse.ok("User deleted");
     }
 }
