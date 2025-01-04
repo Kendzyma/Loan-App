@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
  * @author :  Tiamiyu Kehinde
  * @project : Loan-App
  * @date :  1/4/25
- * @email : Tiamiyu@getrova.com, TiamiyuKehinde5@gmail.com
+ * @email :TiamiyuKehinde5@gmail.com
  */
 class LoanServiceImplTest {
     @InjectMocks

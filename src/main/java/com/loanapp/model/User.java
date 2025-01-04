@@ -9,7 +9,7 @@ import java.util.Set;
  * @author :  Tiamiyu Kehinde
  * @project : Loan-App
  * @date :  1/2/25
- * @email : Tiamiyu@getrova.com, TiamiyuKehinde5@gmail.com
+ * @email :TiamiyuKehinde5@gmail.com
  */
 
 @Table(name = "users")
