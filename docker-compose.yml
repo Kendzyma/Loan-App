@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  loan-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: loan:latest
+    container_name: loan-instance
+    ports:
+      - "8083:8080"
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://my_mysql:3306/loan
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+    networks:
+      - loan-network
+
+  mysql:
+    image: mysql:latest
+    container_name: my_mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=loan
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - loan-network
+
+networks:
+  loan-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
