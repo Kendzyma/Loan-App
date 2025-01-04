@@ -21,10 +21,6 @@ docker compose up -d
 
 ## Design Decisions and Trade-offs
 
-### Overview
-
-The `LoanServiceImpl` class manages core operations in the loan application process, balancing flexibility and clarity with business logic execution.
-
 ### Key Design Choices
 
 - **Validation Logic:** Inline validation ensures that operations like loan creation and status updates respect business rules (e.g., prohibiting approved loans for inactive products).
