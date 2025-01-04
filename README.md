@@ -31,3 +31,4 @@ docker compose up -d
 - **Domain Entity Usage:** Business logic embedded in entities (e.g., maturity date computation) ensures that domain objects maintain integrity and encapsulate relevant behavior.
 - **Error Handling:** Specific exceptions (`BadRequestException`, `ForbiddenException`) provide clear, context-aware error feedback to API consumers without cluttering business logic.
 - **Mapping:** ModelMapper facilitates DTO transformation, enabling seamless conversion between entity and API layers to maintain a clean separation of concerns.
+- **Database Migrations with Flyway:** Flyway is utilized for managing database migrations, ensuring that database changes are applied consistently across environments while maintaining schema version control.
