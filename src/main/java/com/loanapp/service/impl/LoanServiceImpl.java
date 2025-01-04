@@ -17,6 +17,7 @@ import com.loanapp.repository.UserRepository;
 import com.loanapp.service.LoanService;
 import com.loanapp.utils.LoanCalculator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LoanServiceImpl implements LoanService {
     private final UserRepository userRepository;
     private final LoanProductRepository loanProductService;
@@ -56,6 +58,7 @@ public class LoanServiceImpl implements LoanService {
                     throw new ForbiddenException("user has an active loan for this product");
                 });
 
+        log.info("Loan product found: {}", loanProduct);
         Loan loan = Loan.builder()
                 .user(user)
                 .product(loanProduct)
@@ -84,7 +87,7 @@ public class LoanServiceImpl implements LoanService {
         User user = userRepository
                 .findById(loan.getUser().getId())
                 .orElseThrow(() -> new BadRequestException("User not found"));
-
+    log.info("Loan status is {}", status);
         switch (status) {
             case APPROVED:
                 loan.setApprovalDate(LocalDateTime.now());
@@ -154,6 +157,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     @Transactional
     public LoanDto repayLoan(Long id, RepaymentRequest repaymentRequest) {
+        log.info("Repaying loan with id: {}", id);
         Loan loan = loanRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("Loan not found"));
 
@@ -177,6 +181,7 @@ public class LoanServiceImpl implements LoanService {
                 .loan(loan)
                 .build();
 
+        log.info("Saving transaction: {}", transaction);
         transactionRepository.save(transaction);
         LoanDto map = mapper.map(savedLoan, LoanDto.class);
         return map;

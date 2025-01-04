@@ -1,9 +1,7 @@
 package com.loanapp.service.impl;
 
-import com.loanapp.dto.DefaultResponse;
 import com.loanapp.dto.UserDto;
 import com.loanapp.dto.UserRequest;
-import com.loanapp.enums.RoleName;
 import com.loanapp.exception.BadRequestException;
 import com.loanapp.model.Role;
 import com.loanapp.model.User;
@@ -11,11 +9,11 @@ import com.loanapp.repository.RoleRepository;
 import com.loanapp.repository.UserRepository;
 import com.loanapp.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,6 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -77,6 +76,7 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userRequest.phoneNumber());
         user.setRoles(roles);
 
+        log.info("Saving user: {}", user);
         User updateUser = userRepository.save(user);
 
         return modelMapper.map(updateUser, UserDto.class);
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("User not found"));
-
+        log.info("Deleting user with id: {}", id);
         userRepository.delete(user);
     }
 }
